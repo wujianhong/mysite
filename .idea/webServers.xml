@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="WebServers">
+    <option name="servers">
+      <webServer id="sftp://root@120.79.181.20:22/usr/bin/python" name="sftp://root@120.79.181.20:22/usr/bin/python">
+        <fileTransfer host="120.79.181.20" port="22" accessType="SFTP">
+          <option name="port" value="22" />
+        </fileTransfer>
+      </webServer>
+    </option>
+  </component>
+</project>
