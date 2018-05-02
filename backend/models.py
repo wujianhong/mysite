@@ -16,3 +16,9 @@ class Employee(models.Model):
     def __str__(self):
         # 在Python3中使用 def __str__(self):
         return self.name
+    
+class Person(models.Model):    
+    name = models.CharField(max_length=50)    
+    def __str__(self):       
+        # 在Python3中使用 def __str__(self):       
+        return self.name
