@@ -7,7 +7,7 @@ from django.db import models
 # Create your models here.
 
 class Employee(models.Model):
-    name = models.CharField(max_length=50)
+    name = models.CharField(max_length=50,  unique=True)
     weight = models.IntegerField(default=1)
     is_select = models.BooleanField(default=True)
     is_trainee = models.BooleanField(default=False)

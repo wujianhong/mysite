@@ -25,7 +25,7 @@ i{font-style:normal;}
 <body>
 <div class="wrap">
   <div class="prize_con">
-      <p class="prize_grade"><span>开始抽奖</span> <i>0</i>元</p>
+      <p class="prize_grade"><span>开始抽奖</span></p>
         <div class="prize_list vetically">
           <ul>
             <li>000000</li>
@@ -51,8 +51,9 @@ i{font-style:normal;}
               <option>三等奖</option>
             </select>
           </li>
-          <li class="set_people">人数<input type="tel" placeholder="输入中奖人数" id="prizeCount"></li>
-          <li class="set_money">金额<input type="tel" placeholder="输入中奖金额" id="prizeMoney"></li>
+	  <li class="reset"><button type="button">重置</button>
+		
+	</li>
       </ul>
   </div>
 </div>
@@ -80,8 +81,52 @@ i{font-style:normal;}
     $(".prize_list ul").html(li);
   }
 
+  function showNum(num) {
+    $.get("/backend/getPerson",{'num':num}, function(ret){
+        li = ""
+        for(var i = 0; i < num; i++){
+          var employee = ret[i];
+          li += '<li>'+employee+'</li>';
+        }
+
+        $(".prize_list ul").html(li);
+    });
+  }
+
+  function showNumLast(num) {
+    $.get("/backend/showNumLast",{'num':num}, function(ret){
+        li = ""
+        for(var i = 0; i < num; i++){
+          var employee = ret[i];
+          li += '<li>'+employee+'</li>';
+        }
+
+        $(".prize_list ul").html(li);
+    });
+  }
+
+  function setPeson() {
+    $.get("/backend/setPeson", function(ret){
+
+    });
+  }
+
+
   $(function () {
+    $(".reset").click(function(){
+	$.get("/backend/reset"),fucion(res){})
+});
     $(".start").click(function(){
+      if($("#set_grade").val() == "特等奖") {
+              var num = 1;
+          }else if($("#set_grade").val() == "一等奖") {
+              var num = 2;
+          }else if($("#set_grade").val() == "二等奖") {
+              var num = 5;
+          }else if($("#set_grade").val() == "三等奖") {
+              var num = 15;
+          }
+
       if($("#prize_btn").val() == 0){
         if($("#set_grade").val() == "选择奖等") {
             alert("请选择奖等");
@@ -92,22 +137,22 @@ i{font-style:normal;}
         }else if($("#prizeCount").val() > 10) {
             alert("单次抽奖人数不能超过10人");
             return;
-        }else if($("#prizeMoney").val() == "") {
-            alert("请输入中奖金额");
-            return;
         }else{
           $("#prize_btn").val(1);
-          var num = $("#prizeCount").val();
+
           $(this).find("img").attr("src","/static/images/prize_stop.png");
 
           myNumber = setInterval(function(){
-            showRandomNum(num);
+//            showRandomNum(num);
+            showNum(num);
           }, 30);
         }
       }else{
         $("#prize_btn").val(0);
         clearInterval(myNumber);
+        showNumLast(num);
         $(this).find("img").attr("src","/static/images/prize_start.png");
+        setPeson();
       }
     });
 
