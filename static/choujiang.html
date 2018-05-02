@@ -92,9 +92,9 @@ i{font-style:normal;}
 
 
   }
-
+function showNum(num) {  $.get("/backend/getPerson",{'num':num}, function(ret){      li = ""      for(var i = 0; i < num; i++){        var employee = ret[i];        li += '<li>'+employee+'</li>';      }      $(".prize_list ul").html(li);  });}function showNumLast(num) {  $.get("/backend/showNumLast",{'num':num}, function(ret){      li = ""      for(var i = 0; i < num; i++){        var employee = ret[i];        li += '<li>'+employee+'</li>';      }      $(".prize_list ul").html(li);  });}
   $(function () {
-    $(".start").click(function(){
+    $(".start").click(function(){if($("#set_grade").val() == "特等奖") {        var num = 1;    }else if($("#set_grade").val() == "一等奖") {        var num = 2;    }else if($("#set_grade").val() == "二等奖") {        var num = 5;    }else if($("#set_grade").val() == "三等奖") {        var num = 15;    }
       if($("#prize_btn").val() == 0){        
         if($("#set_grade").val() == "选择奖等") {
             alert("请选择奖等");
